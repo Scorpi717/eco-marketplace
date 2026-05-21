@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoPlaza - Sustainable Marketplace</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+:root {
+  --bg-main: #f8faf7;
+  --bg-card: #ffffff;
+  --primary: #1e5e3a;
+  --primary-light: #eef7f2;
+  --text-main: #1a241e;
+  --text-muted: #606f66;
+  --border: #e2e9e4;
+  --shadow: rgba(28, 54, 38, 0.04);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 2rem 1rem;
+}
+
+.market {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.market-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.market-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.market-logo span {
+  font-style: italic;
+  font-weight: 400;
+  color: #388e5a;
+}
+
+.market-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+/* Enhanced Filters */
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  border-radius: 30px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.filter-btn.active, .filter-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(30, 94, 58, 0.15);
+}
+
+/* Premium Grid Elements */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: #bcd4c4;
+  box-shadow: 0 12px 24px rgba(28, 54, 38, 0.08);
+}
+
+.card-img {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f4f8f5 0%, #eef5f0 100%);
+  font-size: 52px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-brand {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  font-weight: 700;
+  color: #388e5a;
+  margin-bottom: 4px;
+}
+
+.card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.4;
+  margin-bottom: 8px;
+  min-height: 40px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.card-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.esg {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  color: #fff;
+  letter-spacing: 0.2px;
+}
+.esg-high { background: #2a7e4b; }
+.esg-mid { background: #d97706; }
+
+.badge-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.badge-org { background: #e8f5e9; color: #1e5e3a; }
+.badge-fair { background: #fff8e1; color: #b45309; }
+.badge-bio { background: #e3f2fd; color: #1d4ed8; }
+.badge-eco { background: #f3e5f5; color: #6b21a8; }
+
+/* Modern Button Actions */
+.btn-link {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+  margin-top: auto;
+  letter-spacing: 0.2px;
+}
+
+.btn-ah { background: #00a1e4; color: #fff; }
+.btn-ah:hover { background: #0082ba; }
+
+.btn-bol { background: #0000ff; color: #fff; }
+.btn-bol:hover { background: #0000cd; }
+
+.btn-picnic { background: #e30613; color: #fff; }
+.btn-picnic:hover { background: #b8050f; }
+
+.btn-eko { background: #6cb33f; color: #fff; }
+.btn-eko:hover { background: #538b2f; }
+</style>
+</head>
+<body>
+
+<div class="market">
+  <div class="market-header">
+    <div class="market-logo">🌿 Eco<span>Plaza</span></div>
+    <div class="market-sub">Sustainable · Fairtrade · Organic · Biodegradable</div>
+  </div>
+  
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterBy('all',this)">All Brands</button>
+    <button class="filter-btn" onclick="filterBy('Cloriven Corp.',this)">🟢 Cloriven Corp.</button>
+    <button class="filter-btn" onclick="filterBy('Solkraft Group',this)">🔵 Solkraft Group</button>
+    <button class="filter-btn" onclick="filterBy('Nexara',this)">🟡 Nexara</button>
+    <button class="filter-btn" onclick="filterBy('Verdanta Bv',this)">🟣 Verdanta Bv</button>
+  </div>
+  
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+const products = [
+  {
+    "name": "Organic Greek Yogurt 500g",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac2.49",
+    "esg": 64,
+    "esgLevel": "mid",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83e\udd63",
+    "shop": "Albert Heijn",
+    "shopClass": "btn-ah",
+    "url": "https://www.ah.nl/zoeken?query=biologische+griekse+yoghurt"
+  },
+  {
+    "name": "Eco-Friendly Laundry Detergent",
+    "brand": "Solkraft Group",
+    "price": "\u20ac4.99",
+    "esg": 64,
+    "esgLevel": "mid",
+    "badge": "badge-eco",
+    "badgeText": "Eco-clean",
+    "icon": "\ud83e\uddf4",
+    "shop": "Bol.com",
+    "shopClass": "btn-bol",
+    "url": "https://www.bol.com/nl/nl/s/?searchtext=ecologische+wasmiddel"
+  },
+  {
+    "name": "Fairtrade Coffee Beans 250g",
+    "brand": "Nexara",
+    "price": "\u20ac5.49",
+    "esg": 59,
+    "esgLevel": "mid",
+    "badge": "badge-fair",
+    "badgeText": "Fairtrade",
+    "icon": "\u2615",
+    "shop": "Picnic",
+    "shopClass": "btn-picnic",
+    "url": "https://picnic.app/nl/zoeken?q=fairtrade+koffiebonen"
+  },
+  {
+    "name": "Organic Bell Peppers",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac2.99",
+    "esg": 72,
+    "esgLevel": "high",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83e\uded1",
+    "shop": "Ekoplaza",
+    "shopClass": "btn-eko",
+    "url": "https://www.ekoplaza.nl/nl/zoeken?search=biologische+paprika"
+  },
+  {
+    "name": "Fairtrade Dark Chocolate 100g",
+    "brand": "Nexara",
+    "price": "\u20ac2.79",
+    "esg": 61,
+    "esgLevel": "mid",
+    "badge": "badge-fair",
+    "badgeText": "Fairtrade",
+    "icon": "\ud83c\udf6b",
+    "shop": "Albert Heijn",
+    "shopClass": "btn-ah",
+    "url": "https://www.ah.nl/zoeken?query=fairtrade+pure+chocolade"
+  },
+  {
+    "name": "Eco-Friendly Dish Soap",
+    "brand": "Solkraft Group",
+    "price": "\u20ac3.49",
+    "esg": 66,
+    "esgLevel": "mid",
+    "badge": "badge-eco",
+    "badgeText": "Eco-clean",
+    "icon": "\ud83e\uddfc",
+    "shop": "Bol.com",
+    "shopClass": "btn-bol",
+    "url": "https://www.bol.com/nl/nl/s/?searchtext=ecologisch+afwasmiddel"
+  },
+  {
+    "name": "Organic Whole Milk 1L",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac1.99",
+    "esg": 69,
+    "esgLevel": "mid",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83e\udd5b",
+    "shop": "Picnic",
+    "shopClass": "btn-picnic",
+    "url": "https://picnic.app/nl/zoeken?q=biologische+volle+melk"
+  },
+  {
+    "name": "Biodegradable Compost Bags",
+    "brand": "Solkraft Group",
+    "price": "\u20ac4.25",
+    "esg": 75,
+    "esgLevel": "high",
+    "badge": "badge-bio",
+    "badgeText": "Biodegradable",
+    "icon": "\ud83d\udecd\ufe0f",
+    "shop": "Ekoplaza",
+    "shopClass": "btn-eko",
+    "url": "https://www.ekoplaza.nl/nl/zoeken?search=composteerbare+afvalzakken"
+  },
+  {
+    "name": "Ethically Sourced Black Tea 50 Bags",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac3.15",
+    "esg": 71,
+    "esgLevel": "high",
+    "badge": "badge-fair",
+    "badgeText": "Fairtrade",
+    "icon": "\ud83c\udf75",
+    "shop": "Albert Heijn",
+    "shopClass": "btn-ah",
+    "url": "https://www.ah.nl/zoeken?query=fairtrade+zwarte+thee"
+  },
+  {
+    "name": "Cruelty-Free Shampoo Bar",
+    "brand": "Solkraft Group",
+    "price": "\u20ac6.99",
+    "esg": 78,
+    "esgLevel": "high",
+    "badge": "badge-eco",
+    "badgeText": "Cruelty-free",
+    "icon": "\ud83e\uddfc",
+    "shop": "Bol.com",
+    "shopClass": "btn-bol",
+    "url": "https://www.bol.com/nl/nl/s/?searchtext=shampoo+bar"
+  },
+  {
+    "name": "Organic Brown Rice 1kg",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac2.89",
+    "esg": 68,
+    "esgLevel": "mid",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83c\udf3e",
+    "shop": "Picnic",
+    "shopClass": "btn-picnic",
+    "url": "https://picnic.app/nl/zoeken?q=biologische+zilvervliesrijst"
+  },
+  {
+    "name": "Sustainable Bamboo Toothbrush Set",
+    "brand": "Verdanta Bv",
+    "price": "\u20ac3.50",
+    "esg": 82,
+    "esgLevel": "high",
+    "badge": "badge-bio",
+    "badgeText": "Biodegradable",
+    "icon": "\ud83e\udea5",
+    "shop": "Ekoplaza",
+    "shopClass": "btn-eko",
+    "url": "https://www.ekoplaza.nl/nl/zoeken?search=bamboe+tandenborstel"
+  },
+  {
+    "name": "Natural Beeswax Wraps 3-pack",
+    "brand": "Nexara",
+    "price": "\u20ac3.15",
+    "esg": 73,
+    "esgLevel": "high",
+    "badge": "badge-eco",
+    "badgeText": "Zero-waste",
+    "icon": "\ud83c\udf6f",
+    "shop": "Albert Heijn",
+    "shopClass": "btn-ah",
+    "url": "https://www.ah.nl/zoeken?query=bijenwasdoeken"
+  },
+  {
+    "name": "Recycled Kraft Paper Notebook",
+    "brand": "Solkraft Group",
+    "price": "\u20ac6.99",
+    "esg": 80,
+    "esgLevel": "high",
+    "badge": "badge-bio",
+    "badgeText": "Recycled",
+    "icon": "\ud83d\udcd3",
+    "shop": "Bol.com",
+    "shopClass": "btn-bol",
+    "url": "https://www.bol.com/nl/nl/s/?searchtext=recycled+kraft+notebook"
+  },
+  {
+    "name": "Cold-Pressed Flaxseed Oil 500ml",
+    "brand": "Nexara",
+    "price": "\u20ac4.10",
+    "esg": 70,
+    "esgLevel": "high",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83e\uded9",
+    "shop": "Picnic",
+    "shopClass": "btn-picnic",
+    "url": "https://picnic.app/nl/zoeken?q=lijnzaadolie"
+  },
+  {
+    "name": "Compostable Plant Pots 6-pack",
+    "brand": "Verdanta Bv",
+    "price": "\u20ac3.75",
+    "esg": 79,
+    "esgLevel": "high",
+    "badge": "badge-bio",
+    "badgeText": "Compostable",
+    "icon": "\ud83c\udf31",
+    "shop": "Ekoplaza",
+    "shopClass": "btn-eko",
+    "url": "https://www.ekoplaza.nl/nl/zoeken?search=composteerbare+kweekpotjes"
+  },
+  {
+    "name": "Organic Steel Cut Oats 500g",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac2.60",
+    "esg": 65,
+    "esgLevel": "mid",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83e\udd63",
+    "shop": "Albert Heijn",
+    "shopClass": "btn-ah",
+    "url": "https://www.ah.nl/zoeken?query=biologische+havermout"
+  },
+  {
+    "name": "Eco Multi-Surface Spray",
+    "brand": "Solkraft Group",
+    "price": "\u20ac3.99",
+    "esg": 68,
+    "esgLevel": "mid",
+    "badge": "badge-eco",
+    "badgeText": "Eco-clean",
+    "icon": "\ud83e\uddf9",
+    "shop": "Bol.com",
+    "shopClass": "btn-bol",
+    "url": "https://www.bol.com/nl/nl/s/?searchtext=eco+multi+surface"
+  },
+  {
+    "name": "Fairtrade Artisan Pasta 500g",
+    "brand": "Nexara",
+    "price": "\u20ac4.10",
+    "esg": 60,
+    "esgLevel": "mid",
+    "badge": "badge-fair",
+    "badgeText": "Fairtrade",
+    "icon": "\ud83c\udf5d",
+    "shop": "Picnic",
+    "shopClass": "btn-picnic",
+    "url": "https://picnic.app/nl/zoeken?q=fairtrade+pasta"
+  },
+  {
+    "name": "Recycled Content Trash Bags",
+    "brand": "Solkraft Group",
+    "price": "\u20ac3.75",
+    "esg": 74,
+    "esgLevel": "high",
+    "badge": "badge-bio",
+    "badgeText": "Recycled",
+    "icon": "\ud83d\uddd1\ufe0f",
+    "shop": "Ekoplaza",
+    "shopClass": "btn-eko",
+    "url": "https://www.ekoplaza.nl/nl/zoeken?search=gerecyclede+vuilniszakken"
+  },
+  {
+    "name": "Organic Quinoa 500g",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac4.95",
+    "esg": 63,
+    "esgLevel": "mid",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83c\udf3f",
+    "shop": "Albert Heijn",
+    "shopClass": "btn-ah",
+    "url": "https://www.ah.nl/zoeken?query=biologische+quinoa"
+  },
+  {
+    "name": "Hand-Pressed Olive Oil 500ml",
+    "brand": "Nexara",
+    "price": "\u20ac8.50",
+    "esg": 57,
+    "esgLevel": "mid",
+    "badge": "badge-fair",
+    "badgeText": "Fairtrade",
+    "icon": "\ud83e\uded2",
+    "shop": "Bol.com",
+    "shopClass": "btn-bol",
+    "url": "https://www.bol.com/nl/nl/s/?searchtext=fairtrade+olijfolie"
+  },
+  {
+    "name": "Locally Sourced Organic Honey",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac5.80",
+    "esg": 71,
+    "esgLevel": "high",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83c\udf6f",
+    "shop": "Picnic",
+    "shopClass": "btn-picnic",
+    "url": "https://picnic.app/nl/zoeken?q=biologische+honing"
+  },
+  {
+    "name": "Sustainable Laundry Sheets",
+    "brand": "Solkraft Group",
+    "price": "\u20ac9.25",
+    "esg": 76,
+    "esgLevel": "high",
+    "badge": "badge-eco",
+    "badgeText": "Zero-waste",
+    "icon": "\ud83c\udf38",
+    "shop": "Ekoplaza",
+    "shopClass": "btn-eko",
+    "url": "https://www.ekoplaza.nl/nl/zoeken?search=duurzame+wasstrips"
+  },
+  {
+    "name": "Bamboo Cutting Board",
+    "brand": "Verdanta Bv",
+    "price": "\u20ac12.50",
+    "esg": 84,
+    "esgLevel": "high",
+    "badge": "badge-bio",
+    "badgeText": "Sustainable",
+    "icon": "\ud83e\udeb5",
+    "shop": "Albert Heijn",
+    "shopClass": "btn-ah",
+    "url": "https://www.ah.nl/zoeken?query=bamboe+snijplank"
+  },
+  {
+    "name": "Organic Coconut Oil 400ml",
+    "brand": "Cloriven Corp.",
+    "price": "\u20ac5.25",
+    "esg": 67,
+    "esgLevel": "mid",
+    "badge": "badge-org",
+    "badgeText": "Organic",
+    "icon": "\ud83e\udd65",
+    "shop": "Bol.com",
+    "shopClass": "btn-bol",
+    "url": "https://www.bol.com/nl/nl/s/?searchtext=biologische+kokosolie"
+  },
+  {
+    "name": "Reusable Mesh Produce Bags 5-pack",
+    "brand": "Verdanta Bv",
+    "price": "\u20ac6.90",
+    "esg": 88,
+    "esgLevel": "high",
+    "badge": "badge-bio",
+    "badgeText": "Zero-waste",
+    "icon": "\ud83d\uded2",
+    "shop": "Picnic",
+    "shopClass": "btn-picnic",
+    "url": "https://picnic.app/nl/zoeken?q=herbruikbare+groentenzakjes"
+  },
+  {
+    "name": "Oat-Based Cleaning Soap Bar",
+    "brand": "Verdanta Bv",
+    "price": "\u20ac4.20",
+    "esg": 81,
+    "esgLevel": "high",
+    "badge": "badge-eco",
+    "badgeText": "Plastic-free",
+    "icon": "\ud83e\uddf4",
+    "shop": "Ekoplaza",
+    "shopClass": "btn-eko",
+    "url": "https://www.ekoplaza.nl/nl/zoeken?search=zeepstaaf"
+  }
+];
+
+function filterBy(brand,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid(brand==='all'?products:products.filter(p=>p.brand===brand));
+}
+
+function renderGrid(list){
+  const g=document.getElementById('grid');
+  g.innerHTML=list.map(p=>`
+    <div class="card">
+      <div class="card-img">${p.icon}</div>
+      <div class="card-body">
+        <div class="card-brand">${p.brand}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-price">${p.price}</div>
+        <div class="card-badges">
+          <span class="esg ${p.esgLevel==='high'?'esg-high':'esg-mid'}">ESG: ${p.esg}</span>
+          <span class="badge-tag ${p.badge}">${p.badgeText}</span>
+        </div>
+        <a href="${p.url}" target="_blank" rel="noopener" class="btn-link ${p.shopClass}">
+          View at ${p.shop}
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+renderGrid(products);
+</script>
+</body>
+</html>
